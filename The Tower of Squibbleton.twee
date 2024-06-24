@@ -1,0 +1,184 @@
+:: StoryTitle
+The Tower of Squibbleton
+
+
+:: StoryData
+{
+  "ifid": "393F0F29-D313-4E14-9F5D-F2EFFFAD4C48",
+  "format": "Harlowe",
+  "format-version": "3.3.9",
+  "start": "Prologue",
+  "tag-colors": {
+    "Header": "red",
+    "Footer": "red"
+  },
+  "zoom": 1
+}
+
+
+:: Accuse {"position":"925,1075","size":"100,100"}
+Bartholomew startles, coughing and backing up a little. "Wha--?! Don't be preposterous, I might have apprenticed as a mage but I never finished up. If I had, do you really think I'd be //walking// from place to place?"
+
+He puts his hands on his hips, eyebrow raised, and you feel a bit foolish. If he were the Great (text-style:"fidget")[Squibbleton], you suppose he'd have probably done something about that cough. And regardless, that tower in front of you is still open. 
+
+"I'm not here to enter, I'm just here to record." Bartholomew holds out a paper. "I want there to be a record of those who enter the tower, to tell its tale.  If those heroes within are still alive, or if they aren't, you should find out what happened to them. The Elven Oracle, Ardryl. The Gladiator-Turned-King, Drusus Talmudius Aetius. The Pirate Queen. And the others, too. Their treasure and fates surely lie within!"
+
+With nothing more to say, [[he watches you turn to approach the tower|Tower1]].
+
+
+:: Begin {"position":"800,700","size":"100,100"}
+And thus begins the tale of $name the $profession. You're certainly not the only up-and-coming hero who spotted the tower's return, but you're definitely one of the first to set out to adventure!
+
+[[Continue]]
+
+
+:: Climb {"position":"500,1350","size":"100,100"}
+(if:$profession is "Squire")[You haven't climbed a wizard's tower before, but you've helped fix roofs and fetch cats from trees more than once! Climbing the tower is no problem for you, and it takes only a few moments to reach the window. [[You heave yourself in|The Study]].]
+(else-if:$profession is "Ranger")[You've climbed trees a thousand times, and stone isn't much different. You've actually got some rope on you, and it doesn't take long for you to fashion a make-shift grappling hook to toss it up into the air and onto the ledge. 
+
+You have no difficulty making it up after that, and it takes you only a few moments to reach the window. [[You slip insides sneakily|The Study]]]
+(else:)[Unfortunately, try as you might, you can't pull yourself up more than the first few bricks. You drop back down, dusting yourself off. Maybe if you had a ladder or something but... well, none of those out here, and the trees are too far from the tower to use. [[You head toward the door|The Hall]]]
+<!--This is a passage which tells us different things depending on which Profession we picked. They don't all lead to the same place!-->
+
+
+:: Continue {"position":"800,825","size":"100,100"}
+(if:$profession is "Ranger")[You know exactly where the easiest paths are and make even better time where others in the suurrounding villages are surely struggling against these bushes.]
+(else:)[The brush is incredibly dense, and you curse the wilderness as you push through. It seems to catch on your backpack with every step, slowing you down as if defending the tower. Perhaps even this is one of Squibbleton's traps?!]
+<!--Check this out! By using the (if:stuff) command, we're able to post either passage, depending on the player's profession. If we wanted three different passages, one per profession, we could use "else-if" instead of "else" to check if $profession is set to Squire or Sage-->
+
+Eventually, you make it out to a ''''surprisingly lush lawn''''. Sitting across from it is a tall tower fashioned of purple stone. The front doors, heavy and wooden, ''are already open''.
+<!--By bolding the text here, we can direct the reader's attention that something is important. We can use ''bold'' with two ' or //italics// with two /, all found on the right side of the keyboard.-->
+[[The cough behind you startles you even more.|Old Man]]
+<!--By using the | separator, we can use a sentence to send us to a Passage by another name.->>
+
+
+:: Give your name {"position":"800,450","size":"100,100"}
+(set: $name to (prompt: "Enter your name:", ""))
+<!--The $ indicates we're dealing with a VARIABLE. This is a value which might change; in this case, each person chooses their name right at the start. -->
+(if:$name is "Squibbleton")[[[Oh no you're not!|Give your name]]]
+(if:$name is not "" and is not "Squibbleton")[The Great $name has a nice ring to it. 
+
+[[Profession]]]
+<!--This text only shows if A) the name is not blank and B) the name is not Squibbleton. And trust me, you're not allowed to steal my -- uh, my friend's name!-->
+
+
+:: Inquire {"position":"675,1075","size":"100,100"}
+"I don't know who's in there already, but I've been here two hours and nobody's approached yet." He looks out toward the tower. 
+
+"They say (text-style:"fidget")[Squibbleton] liked his tricks. His magic items are never pure good, and never pure bad, but you have to figure out what makes them tricky. Here..."
+
+Bartholomew pulls something out of his pocket; a gold coin, but one which seems to have the same face on both sides. It reminds you of the joker in a deck of playing cards. "This is one of them, a coin of his. It will give you good luck for the future, but note that after you use it you'll be bound to have bad luck after. Be careful."
+
+(link: "Take the coin")[{
+    (set: $inv to $inv + (a: "A Trick Coin"))
+    (rerun: ?inv)
+    (text-colour:yellow)[''Obtained a Trick Coin'']
+}]
+
+With nothing more to say, [[he watches you turn to approach the tower|Tower1]].
+<!-- This code here adds "A Trick Coin" to our inventory if the player clicks the link. When they do, the yellow "Obtained a Trick Coin" text appears. If we wanted this to be automatic, we can remove the "link" formatting and leave just the indented set, rerun, and text.
+
+How will this matter? We can use code later to set up other if statements, allowing us to give a new option to the player IF they have the Trick Coin. For example...-->
+
+<!--Example: 
+(if: $inv contains "A Trick Coin")[You look down at the enchanted coin. Well, if you have to pick at random, might as well be guaranteed to pick the right door. (put the link to the secret Passage here).]
+(else:)[""]
+-->
+
+
+:: Old Man {"position":"800,950","size":"100,100"}
+It's Old Bartholomew! (if:$profession is "Sage")[He used to be a wizard's apprentice back in the day, though he never would answer your questions about why he never became a wizard himself. He doesn't live in your village, but he instead does loops through several villages and visits with news every few weeks.] (else:)[You see him around every few months, but you don't know anyone in your village who really //knows// him. ]
+
+"Ah," he says. "$name, isn't it?" He looks over at the purple tower. "Looks like someone got here first. I'm not surprised you got here so fast, I just happened to be en route already."
+
+[[Nod your head and ask whether he saw anything|Inquire]]
+[[Ignore him and enter the tower.|Tower1]]
+[["A likely story, Old Bartholomew. Or should I say...|Accuse]] ''(text-colour:blue)[OLD (text-style:"fidget")[SQUIBBLETON]"]''
+<!--This time, the player can go to one of three passages. Their choices here affect what they're told, but all three choices eventually just lead to them entering the tower.-->
+<!--The magical power of Squibbleton's name prevents it from serving as a link, but we can color it blue to keep the aesthetic the same.-->
+
+
+:: Profession {"position":"800,575","size":"100,100"}
+And how did you train as you passed the time
+
+* (link: "I was an explorer of the wilderness around home. (text-colour:#ffec99)[I'm very resourceful now.]")[(set: $profession to "Ranger")(goto: "Begin")]
+* (link: "I was one of the hardest workers in the village, running to and fro and carrying all sorts of tasks. (text-colour:#ffec99)[I'm strong and reliable.]")[(set: $profession to "Squire")(goto: "Begin")]
+* (link: "I did my best to study and learn as much as I could from the various travellers. (text-colour:#ffec99)[And I've learned a lot!]")[(set: $profession to "Sage")(goto: "Begin")]
+
+<!--Looks like a lot, eh? Don't worry, use the colors as we break it down.
+
+	The "link" turns the following text into the link you start with. Notice we have ( ) around that. 
+
+	The next two are all inside the same [ ] blocks. 
+		The "set" text allows us to set a new variable, the profession, to a value. This way, we can refer to it later when you run into some of m- uh, Squibbleton's traps.
+		The "goto" text will make that link we just made earlier send us to the "Begin" passage. 
+        
+Be VERY careful about where the ( and [ wind up in these; if you put them in the wrong spot, the magical powers of Twine will try to tell you by highlighting or changing the colors-->
+
+
+:: Prologue {"position":"800,325","size":"100,100"}
+# The Tower of Squibbleton (set: $inv to (a:))
+<!-- I bet you're wondering how I'm talking to you here, huh? Who am I? Well, let's just say that if you know my name >:) If you ever want to leave COMMENTS for people, just surround the text in these dashes and the arrows from the right side of your keyboard.
+
+	Speaking of which, the # symbol makes the text a "Header", which are used for titles. This is most often used at the start of a story or chapter. 
+
+	The (set:$inv to "") text means our inventory variable $inv is officially empty at the start, but we can add things to it as we go. The (a:) portion indicates that $inv is an "array", which means it's a list of strings rather than just being one string. -->
+
+There was once a great mage, known as the greatest of all time. The great (text-style:"fidget")[Squibbleton], whose very name speaks of their  power! They were known for many things, but most importantly they were know for their tricky enchantments, clever cunning, and wicked traps. After they vanished, many heroes entered (text-style:"fidget")[Squibbleton]'s tower, only for the whole tower to suddnely vanish!
+<!--Squibbleton is so great that his name always wiggles! You can find this by clicking "Styles" (where you find bold and italics), then clicking More Styles and going down to Fidget. -->
+With all the heroes! 
+
+After many years, a tower has just appeared outside your village. Now is your chance to prove your worth! 
+
+And who //are// you?
+<!--Other than a troublemaker-->
+[[Give your name]]
+<!-- The use of double [[ things around text will make a link to that passage of the story.-->
+
+
+:: Sidebar [footer] {"position":"800,200","size":"100,100"}
+(append: ?SideBar)[\
+	(text-style:"double-underline")[''Inventory''] 
+	(if: $inv's length is 0)[You aren't carrying anything.]
+	(else:)[You are carrying: 
+$inv]
+]
+<!--This dictates what's in the sidebar. We set the $inv variable to just nothing (ie "") back in the Prologue at the very start. If we want to change the style of our sidebar, go to the STORY->STYLESHEETS options and look at details to change in there. -->
+
+
+:: The Hall {"position":"800,1325","size":"100,100"}
+<!--This is reserved for the entry hall. What sort of things are present inside? Well, I suppose that's up to you to decide now!-->
+
+
+:: The Study {"position":"500,1475","size":"100,100"}
+<!--While this is called "The Study", we can make this any room that we want. This is where those details would go-->
+
+
+:: Tower1 {"position":"800,1200","size":"100,100"}
+The tower's doors are ajar, and the interior is dark and spooky. You can see a window partially ajar as well, almost on the second story. 
+
+The building is far from smooth. Perhaps you could [[climb to the window|Climb]]?
+Or would you prefer to simply [[stride in through the doors|The Hall]]?
+
+
+:: StoryStylesheet [stylesheet]
+/* twine-user-stylesheet #1: "UserStylesheet" */
+/* Reposition the Sidebar 'footer' tagged passage.*/
+/* Note that this text uses HTML, rather than Twine's own code*/
+
+tw-sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 20%;				/* padding-right of the tw-story element. */
+	max-height: 100%;
+	margin-top: 5%;			/* padding-top of the tw-story element. */
+	padding: 0 0.5em 0.5em 0.5em;
+	text-align: center;
+	background-color: transparent;
+    color: #ffc9c9;			/*This turns the sidebar a light red; #ffc9c9 is the "hex code" for this particular color of red.*/
+}
+tw-icon {
+	text-align: right;
+	padding-right: 0.75em;
+}
